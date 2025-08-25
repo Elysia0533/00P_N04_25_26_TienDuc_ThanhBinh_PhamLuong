@@ -1,0 +1,8 @@
+class Number {
+    int i;
+}
+Number n1 = new Number();
+Number n2 = new Number();
+n1.i = 3;
+n2.i = 3;
+System.out.println(n1.equals(n2));
