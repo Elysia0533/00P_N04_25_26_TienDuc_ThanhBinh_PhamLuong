@@ -1,4 +1,12 @@
 # 00P_N04_25_26_TienDuc_ThanhBinh
+
+## Thành viên
+00P_N04_25_26
+1. Trần Tiến Đức
+   MSV: 23010777
+2. Lê Thanh Bình
+   MSV 23010242
+
 ## Xây dựng ứng dụng web âm nhạc
 
 Yêu cầu:
