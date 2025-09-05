@@ -1,8 +1,26 @@
-class Number {
-    int i;
+public class Flower {
+    int petalCount = 0;
+    String s = new String("null");
+
+    // Constructor 1: nhận số cánh
+    Flower(int petals) { 
+        petalCount = petals; 
+    }
+
+    // Constructor 2: nhận chuỗi
+    Flower(String ss) { 
+        s = ss; 
+    }
+
+    // Constructor 3: nhận cả chuỗi và số
+    Flower(String s, int petals) {
+        this(petals);   // gọi constructor Flower(int petals)
+        //! this(s);    // ❌ không được gọi 2 lần this() trong cùng constructor
+        this.s = s;     // gán chuỗi cho biến thành viên
+    }
+
+    // Constructor 4: mặc định (không tham số)
+    Flower() { 
+        this("hi", 47); // gọi constructor 3
+    }
 }
-Number n1 = new Number();
-Number n2 = new Number();
-n1.i = 3;
-n2.i = 3;
-System.out.println(n1.equals(n2));
