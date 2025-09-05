@@ -14,7 +14,7 @@ public class song {
     public Song(String title, String artistName, int durationInSecond, String filePath) {
         this.title = title;
         this.artistName = artistName;
-        this.this.durationInSecond = durationInSecond;
+        this.durationInSecond = durationInSecond;
         this.filePath = filePath;
     }
 }
