@@ -14,11 +14,11 @@ public class Flower {
 
     Flower(String s, int petals) {
         this(petals); 
-        this(s);
-        //this.s = s; 
+        //this(s);
+        this.s = s; 
     }
 
     Flower() { 
-        thiS("hi", 47);
+        this("hi", 47);
     }
 }
