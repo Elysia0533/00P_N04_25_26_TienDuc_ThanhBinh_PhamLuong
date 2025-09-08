@@ -17,11 +17,11 @@ public class user {
         return username;
     }
     public void setUsername(String username) {
-        if (user name == null || username.isEmpty()) {
+        if (username == null || username.isEmpty()) {
             this.username = "Unknown";
         } else {this.username = username;}
     }
-    public String getEmail() {returnemail;}
+    public String getEmail() {return email;}
     public void setEmail(String email) {
         if (email != null && email.contain("@")) {
             this.email = email;
