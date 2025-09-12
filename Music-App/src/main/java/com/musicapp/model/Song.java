@@ -1,6 +1,4 @@
-package main.java.musicapp.model;
-
-public class song {
+/*  public class Song {
     String title;
     String artistName;
     int durationInSecond;
@@ -18,3 +16,4 @@ public class song {
         this.filePath = filePath;
     }
 }
+*/

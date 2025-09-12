@@ -1,6 +1,5 @@
-package Controller;
-
 public class Flower {
+    
     int petalCount = 0;
     String s = new String("null");
 
@@ -22,3 +21,4 @@ public class Flower {
         this("hi", 47);
     }
 }
+

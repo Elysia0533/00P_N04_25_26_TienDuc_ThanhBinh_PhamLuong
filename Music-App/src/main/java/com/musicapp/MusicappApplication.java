@@ -1,4 +1,4 @@
-package main.java.musicapp;
+package main.java.com.musicapp;
 
 public class MusicappApplication {
     

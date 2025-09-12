@@ -1,11 +1,11 @@
-public class NameNumber {
+/*public class NameNumber {
     private String lastName;
     private String telNumber;
     public NameNumber () {}
-    public Namenumber(String name, String num) {
+    public NameNumber(String name, String num) {
         lastName = name;
         telNumber = num;
     }
 }
 public String getLastName() {return lastName;}
-public String getTelNumber() {return telNumber;}
+public String getTelNumber() {return telNumber;}*/

@@ -1,6 +1,6 @@
-package main.java.musicapp.model;
+/*package main.java.musicapp.model;
 
-public class user {
+public class User {
     private String id;
     private String username;
     private String email;
@@ -33,3 +33,4 @@ public class user {
         return "User{id='" + getId() + "', username='" + getUsername() + "', email='" + getEmail() + "'}";
     }
 }
+*/

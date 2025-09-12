@@ -1,6 +1,4 @@
-package src;
-
-public class Recursion {
+/*public class Recursion {
 
 
     public static long factorial(int n) {
@@ -22,3 +20,4 @@ public class Recursion {
         System.out.println("Fibonacci(10) = " + fibonacci(10));
     }
 }
+*/
