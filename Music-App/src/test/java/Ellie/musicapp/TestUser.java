@@ -1,4 +1,4 @@
-package Ellie.musicapp;
+package test.java.Ellie.musicapp;
 
 import Ellie.musicapp.model.User;
 
