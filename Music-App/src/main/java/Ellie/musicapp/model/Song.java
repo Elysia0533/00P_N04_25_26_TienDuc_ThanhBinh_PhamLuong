@@ -17,6 +17,8 @@
     }
 }
 */
+package Ellie.musicapp.model;
+
 import class Song implements Serializable{
     private Lon id;
     private String title;
