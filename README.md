@@ -30,6 +30,10 @@
 
 ### 1.3 Activity Diagram (CRUD)
 
+#### Playlist
+
+<img width="1189" height="673" alt="activityDiagPL (2)" src="https://github.com/user-attachments/assets/5a5ee817-3dac-44d5-a704-9d5d1e360390" />
+
 #### User
 
 **Create**
