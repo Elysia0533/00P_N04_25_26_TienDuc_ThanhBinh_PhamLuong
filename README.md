@@ -31,25 +31,47 @@
 ### 1.3 Activity Diagram (CRUD)
 
 #### User
+
+**Create**
 **Create**
 ```mermaid
-
 flowchart TD
-    A([Bắt đầu]) --> B[Nhập thông tin User]
-    B --> C[Tạo đối tượng User]
-    C --> D[Lưu User vào danh sách]
-    D --> E([Kết thúc])
+    A([Bắt đầu]) --> B[Nhập thông tin User]
+    B --> C{Thông tin hợp lệ?}
+    C -->|Có| D[Thêm User vào danh sách]
+    C -->|Không| E[Thông báo lỗi]
+    D --> F([Kết thúc])
+    E --> F([Kết thúc])
+```
 
+**Read**
+```mermaid
 flowchart TD
-    A([Bắt đầu]) --> B[Chọn yêu cầu xem danh sách User]
-    B --> C[Lấy danh sách User từ bộ nhớ]
-    C --> D[Hiển thị danh sách User]
-    D --> E([Kết thúc])
+    A([Bắt đầu]) --> B[Chọn yêu cầu xem danh sách User]
+    B --> C[Lấy danh sách User từ bộ nhớ]
+    C --> D[Hiển thị danh sách User]
+    D --> E([Kết thúc])
+```
 
+**Update**
+```mermaid
 flowchart TD
-    A([Bắt đầu]) --> B[Nhập ID User cần xóa]
-    B --> C[Tìm User theo ID]
-    C -->|Tìm thấy| D[Xóa User khỏi danh sách]
-    C -->|Không tìm thấy| F[Thông báo lỗi]
-    D --> E([Kết thúc])
-    F --> E
+    A([Bắt đầu]) --> B[Nhập ID User và thông tin mới]
+    B --> C[Tìm User theo ID]
+    C -->|Tìm thấy| D[Cập nhật thông tin User]
+    C -->|Không tìm thấy| F[Thông báo lỗi]
+    D --> E([Kết thúc])
+    F --> E([Kết thúc])
+```
+
+
+**Delete**
+```mermaid
+flowchart TD
+    A([Bắt đầu]) --> B[Nhập ID User cần xóa]
+    B --> C[Tìm User theo ID]
+    C -->|Tìm thấy| D[Xóa User khỏi danh sách]
+    C -->|Không tìm thấy| F[Thông báo lỗi]
+    D --> E([Kết thúc])
+    F --> E([Kết thúc])
+```
