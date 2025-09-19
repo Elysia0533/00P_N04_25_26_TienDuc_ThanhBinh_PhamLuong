@@ -6,6 +6,8 @@
    MSV: 23010777
 2. Lê Thanh Bình
    MSV 23010242
+3. Phạm Thị Lương
+   MSV 23017258
 
 ## Xây dựng ứng dụng web âm nhạc
 
