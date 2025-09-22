@@ -1,5 +1,4 @@
-/* 
- package src;
+package Ellie.musicapp.model;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
@@ -9,7 +8,7 @@ public class Time {
     private LocalDateTime dateTime;
 
     public Time() {
-        this.dateTime = LocalDateTime.now(); // mặc định lấy thời gian hiện tại
+        this.dateTime = LocalDateTime.now();
     }
 
     public Time(LocalDateTime dateTime) {
@@ -43,4 +42,3 @@ public class Time {
         return diff.toMinutes();
     }
 }
-*/
