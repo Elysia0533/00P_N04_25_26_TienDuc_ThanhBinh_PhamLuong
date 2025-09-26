@@ -3,7 +3,7 @@ package Ellie.musicapp;
 import Ellie.musicapp.model.User;
 import Ellie.musicapp.service.UserService;
 
-public class Main {
+public class Musicapplication {
     public static void main(String[] args) {
         UserService service = new UserService();
 

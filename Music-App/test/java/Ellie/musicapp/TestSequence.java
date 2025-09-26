@@ -1,4 +1,4 @@
-package test;
+package test.java.Ellie.musicapp;
 
 import review.Sequence;
 import review.Selector;
