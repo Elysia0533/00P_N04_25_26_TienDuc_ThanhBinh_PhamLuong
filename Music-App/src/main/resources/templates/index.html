@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify-like Music App</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+        }
+        .navbar {
+            background: #1db954;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+        .search-bar {
+            margin: 2rem auto;
+            max-width: 500px;
+            display: flex;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        .search-bar button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: #1db954;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .playlist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .card {
+            background: #282828;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        .card:hover {
+            background: #333;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .card h2 {
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        .card p {
+            color: #b3b3b3;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>My Spotify</h1>
+        <nav>
+            <a href="#" style="color:#fff; text-decoration:none; margin-right:1rem;">Home</a>
+            <a href="#" style="color:#fff; text-decoration:none;">Library</a>
+        </nav>
+    </div>
+    <form class="search-bar" th:action="@{/search}" method="get">
+        <input type="text" name="query" placeholder="Search for songs, artists..." />
+        <button type="submit">Search</button>
+    </form>
+    <section class="playlist">
+        <div class="card" th:each="song : ${songs}">
+            <img th:src="${song.coverUrl}" alt="Album cover" />
+            <h2 th:text="${song.title}">Song Title</h2>
+            <p th:text="${song.artist}">Artist Name</p>
+        </div>
+    </section>
+</body>
+</html>
