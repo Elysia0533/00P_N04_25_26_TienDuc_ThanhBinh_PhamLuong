@@ -1,9 +1,19 @@
+<<<<<<< HEAD:Music-App/src/main/java/Ellie/musicapp/Controller/ex/Detergent.java
 /*public class Detergent extends Cleanser {
+=======
+public class Detergent {
+>>>>>>> 640ae42 (Update code):Music-App/src/main/java/Ellie/musicapp/Controller/Detergent.java
     public void scrub() {
-        append(" Detergent.scrub()");
-        super.scrub(); // gọi lại scrub() của Cleanser
+        System.out.println("Detergent: scrub()");
     }
 
-    public void foam() { append(" foam()"); }
+    public void foam() {
+        System.out.println("Detergent: foam()");
+    }
+
+    @Override
+    public String toString() {
+        return "Detergent ready!";
+    }
 }
 */
