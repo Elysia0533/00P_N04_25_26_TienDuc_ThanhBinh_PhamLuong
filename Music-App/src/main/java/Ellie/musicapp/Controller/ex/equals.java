@@ -1,4 +1,4 @@
-public class equals {
+/*public class equals {
     int petalCount = 0;
     String s = new String("null");
 
@@ -24,3 +24,4 @@ public class equals {
         this("hi", 47); // gọi constructor 3
     }
 }
+*/

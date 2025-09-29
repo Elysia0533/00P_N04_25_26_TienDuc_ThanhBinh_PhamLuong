@@ -1,4 +1,4 @@
-package interfaces;
+package Ellie.musicapp.Controller.interfaces;
 
 public class Sequence {
     private Object[] objects; 

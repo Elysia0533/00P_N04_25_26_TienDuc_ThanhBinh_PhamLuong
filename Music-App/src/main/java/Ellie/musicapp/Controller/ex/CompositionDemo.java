@@ -1,4 +1,4 @@
-public class CompositionDemo {
+/*public class CompositionDemo {
     private Detergent d = new Detergent(); // composition
 
     public void scrub() {
@@ -21,3 +21,4 @@ public class CompositionDemo {
         System.out.println(cd);
     }
 }
+*/

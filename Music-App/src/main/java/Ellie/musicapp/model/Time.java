@@ -1,4 +1,4 @@
-package Ellie.musicapp.model;
+/*package Ellie.musicapp.model;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
@@ -42,3 +42,4 @@ public class Time {
         return diff.toMinutes();
     }
 }
+*/

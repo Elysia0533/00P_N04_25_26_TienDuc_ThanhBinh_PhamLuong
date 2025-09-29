@@ -1,4 +1,4 @@
-public class Cleanser {
+/*public class Cleanser {
      private String s = "Cleanser";
 
     public void append(String a) { s += a; }
@@ -8,3 +8,4 @@ public class Cleanser {
     @Override
     public String toString() { return s; }
 }
+*/

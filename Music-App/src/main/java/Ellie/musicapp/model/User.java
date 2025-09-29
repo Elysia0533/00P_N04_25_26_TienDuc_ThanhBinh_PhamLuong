@@ -1,57 +1,36 @@
 package Ellie.musicapp.model;
 
-public class User {
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-    private final String id;
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
     private String email;
+    private String password;
 
-    public User(String id, String username, String email) {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Playlist> playlists = new ArrayList<>();
 
-        this.id = id;
-        setUsername(username);
-        setEmail(email);
+    public User() {}
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
-    
-    //id
-    public String getId() { 
-        return id; 
-    }
-
-    //username
-    public String getUsername() { 
-        return username; 
-    }
-    public void setUsername(String username) {
-
-        if (username == null || username.isEmpty()) {
-
-            this.username = "Unknown";
-        } else {
-
-            this.username = username;
-        }
-    }
-
-    //email
-    public String getEmail() { 
-        
-        return email; 
-    }
-    public void setEmail(String email) {
-
-        if (email != null && email.contains("@")) {
-
-            this.email = email;
-        } else {
-
-            this.email = "invalid@example.com";
-        }
-    }
-
-    @Override
-    public String toString() {
-
-        return "User{id='" + id + "', username='" + username + "', email='" + email + "'}";
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public List<Playlist> getPlaylists() { return playlists; }
+    public void setPlaylists(List<Playlist> playlists) { this.playlists = playlists; }
 }

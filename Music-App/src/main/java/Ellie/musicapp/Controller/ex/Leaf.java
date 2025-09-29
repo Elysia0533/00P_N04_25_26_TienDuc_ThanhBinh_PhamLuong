@@ -1,4 +1,4 @@
-public class Leaf {
+/*public class Leaf {
     int i = 0;
     Leaf increment() {
         i++;
@@ -10,3 +10,4 @@ public class Leaf {
         x.increment().increment().increment().print();
     }
 }
+*/

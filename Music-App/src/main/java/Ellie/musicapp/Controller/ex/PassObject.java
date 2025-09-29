@@ -1,4 +1,4 @@
-class Number {
+/*class Number {
     int i;
 }
 
@@ -13,4 +13,4 @@ public class PassObject {
         System.out.println(n.i);
 
     }
-}
+}*/

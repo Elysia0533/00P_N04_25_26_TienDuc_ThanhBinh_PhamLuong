@@ -1,4 +1,4 @@
-public class Flower {
+/*public class Flower {
     
     int petalCount = 0;
     String s = new String("null");
@@ -22,3 +22,4 @@ public class Flower {
     }
 }
 
+*/
