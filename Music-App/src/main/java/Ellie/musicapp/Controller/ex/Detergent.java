@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Music-App/src/main/java/Ellie/musicapp/Controller/ex/Detergent.java
-/*public class Detergent extends Cleanser {
-=======
-public class Detergent {
->>>>>>> 640ae42 (Update code):Music-App/src/main/java/Ellie/musicapp/Controller/Detergent.java
+<public class Detergent extends Cleanser {
     public void scrub() {
         System.out.println("Detergent: scrub()");
     }
@@ -16,4 +12,3 @@ public class Detergent {
         return "Detergent ready!";
     }
 }
-*/
