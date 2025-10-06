@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Songs</title>
+</head>
+<body style="margin:0; background:#181818; color:white; font-family:sans-serif;">
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <!-- Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- Main Content -->
+    <div style="margin-left:220px; padding:20px; margin-top:60px;">
+        <h2>🎵 Songs</h2>
+
+        <form th:action="@{/songs}" method="post" style="margin-bottom:20px;">
+            <input type="text" name="title" placeholder="Tên bài hát" required />
+            <input type="text" name="artist" placeholder="Nghệ sĩ" required />
+            <input type="text" name="genre" placeholder="Thể loại" />
+            <input type="text" name="album" placeholder="Album" />
+            <button type="submit">Thêm bài hát</button>
+        </form>
+
+        <table border="0" style="width:100%; color:white;">
+            <tr style="border-bottom:1px solid #333; text-align:left;">
+                <th>Title</th><th>Artist</th><th>Genre</th><th>Album</th><th>Action</th>
+            </tr>
+            <tr th:each="song : ${songs}" style="border-bottom:1px solid #333;">
+                <td th:text="${song.title}"></td>
+                <td th:text="${song.artist}"></td>
+                <td th:text="${song.genre}"></td>
+                <td th:text="${song.album}"></td>
+                <td>
+                    <a th:href="@{'/songs/delete/' + ${song.id}}" style="color:#1DB954;">❌</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
