@@ -1,4 +1,4 @@
-package Ellie.musicapp.service;
+package Ellie.musicapp.Controller;
 
 import Ellie.musicapp.model.Song;
 import Ellie.musicapp.repository.SongRepository;

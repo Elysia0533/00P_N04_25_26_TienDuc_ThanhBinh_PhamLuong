@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Playlists</title>
+</head>
+<body style="margin:0; background:#181818; color:white; font-family:sans-serif;">
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <!-- Header -->
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- Main Content -->
+    <div style="margin-left:220px; padding:20px; margin-top:60px;">
+        <h2>📁 Playlists</h2>
+
+        <form th:action="@{/playlists}" method="post" style="margin-bottom:20px;">
+            <input type="text" name="name" placeholder="Tên Playlist" required />
+            <button type="submit">Thêm Playlist</button>
+        </form>
+
+        <ul>
+            <li th:each="playlist : ${playlists}" th:text="${playlist.name}"></li>
+        </ul>
+    </div>
+
+</body>
+</html>
+
+
+
+
