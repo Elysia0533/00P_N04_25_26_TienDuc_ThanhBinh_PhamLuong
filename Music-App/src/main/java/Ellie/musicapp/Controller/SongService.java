@@ -1,0 +1,27 @@
+package Ellie.musicapp.service;
+
+import Ellie.musicapp.model.Song;
+import Ellie.musicapp.repository.SongRepository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public class SongService {
+    private final SongRepository repo;
+
+    public SongService(SongRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Song> getAll() {
+        return repo.findAll();
+    }
+
+    public Song save(Song song) {
+        return repo.save(song);
+    }
+
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
+}
