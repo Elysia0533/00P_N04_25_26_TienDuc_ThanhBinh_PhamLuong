@@ -81,45 +81,7 @@ flowchart TD
 ```
 ## Activity Diagram CRUD Song  
 
-### Create Song
-```mermaid
-flowchart TD
-    A([Start]) --> B[Nhập thông tin bài hát]
-    B --> C{Dữ liệu hợp lệ?}
-    C -- Không --> D[Hiển thị lỗi] --> G([End])
-    C -- Có --> E[Lưu bài hát vào Repository/DB]
-    E --> F[Thông báo thành công]
-    F --> G([End])
 
-### Read Song
-```mermaid
-flowchart TD
-    A([Start]) --> B[Yêu cầu danh sách bài hát]
-    B --> C[Lấy danh sách từ Repository/DB]
-    C --> D[Hiển thị danh sách]
-    D --> E([End])
-
-### Update Song
-```mermaid
-flowchart TD
-    A([Start]) --> B[Chọn bài hát cần sửa]
-    B --> C[Hiển thị thông tin cũ]
-    C --> D[Nhập thông tin mới]
-    D --> E{Dữ liệu hợp lệ?}
-    E -- Không --> F[Hiển thị lỗi] --> I([End])
-    E -- Có --> G[Cập nhật bài hát trong Repository/DB]
-    G --> H[Thông báo thành công]
-    H --> I([End])
-
-### Delete Song
-```mermaid
-flowchart TD
-    A([Start]) --> B[Chọn bài hát cần xóa]
-    B --> C{Xác nhận xóa?}
-    C -- Không --> E([End])
-    C -- Có --> D[Xóa bài hát khỏi Repository/DB]
-    D --> F[Thông báo thành công]
-    F --> E([End])
 
 # 🎵 MusicApp – Ứng dụng quản lý bài hát với Spring Boot + Thymeleaf
 
