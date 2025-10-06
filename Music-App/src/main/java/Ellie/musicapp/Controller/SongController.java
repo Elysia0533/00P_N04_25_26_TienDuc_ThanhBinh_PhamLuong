@@ -1,39 +1,36 @@
-package Ellie.musicapp.Controller;
+package Ellie.musicapp.controller;
 
 import Ellie.musicapp.model.Song;
-import Ellie.musicapp.repository.SongRepository;
+import Ellie.musicapp.service.SongService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
-@RestController
-@RequestMapping("/api/songs")
+@Controller
+@RequestMapping("/songs")
 public class SongController {
-    private final SongRepository repo;
-    public SongController(SongRepository repo) { this.repo = repo; }
 
-    @GetMapping
-    public List<Song> all() { return repo.findAll(); }
+    private final SongService service;
 
-    @GetMapping("/{id}")
-    public Optional<Song> one(@PathVariable Long id) { return repo.findById(id); }
-
-    @PostMapping
-    public Song create(@RequestBody Song s) { return repo.save(s); }
-
-    @PutMapping("/{id}")
-    public Song update(@PathVariable Long id, @RequestBody Song s) {
-        return repo.findById(id).map(existing -> {
-            existing.setTitle(s.getTitle());
-            existing.setDuration(s.getDuration());
-            existing.setArtist(s.getArtist());
-            existing.setAlbum(s.getAlbum());
-            existing.setGenre(s.getGenre());
-            return repo.save(existing);
-        }).orElseGet(() -> { s.setId(id); return repo.save(s); });
+    public SongController(SongService service) {
+        this.service = service;
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) { repo.deleteById(id); }
+    @GetMapping
+    public String listSongs(Model model) {
+        model.addAttribute("songs", service.getAll());
+        return "songs"; // -> templates/songs.html
+    }
+
+    @PostMapping
+    public String addSong(@ModelAttribute Song song) {
+        service.save(song);
+        return "redirect:/songs";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteSong(@PathVariable Long id) {
+        service.delete(id);
+        return "redirect:/songs";
+    }
 }
