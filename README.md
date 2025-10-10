@@ -91,26 +91,15 @@ flowchart TD
 musicapp/
 
 ├── src/
-
 │   ├── main/
-
 │   │   ├── java/com/musicapp/
-
 │   │   │   ├── model/ --> Các lớp Entity (tượng trưng cho bảng trong DB)
-
 │   │   │   ├── repository/ --> Giao tiếp với CSDL (JPA)
-
 │   │   │   ├── service/--> Xử lý nghiệp vụ (logic)
-
 │   │   │   ├── controller/--> Điều khiển request, trả dữ liệu cho view
-
 │   │   │   └── MusicAppApplication.java --> File main khởi chạy Spring Boot
-
 │   │   └── resources/
-
 │   │       ├── templates/ --> Giao diện Thymeleaf (HTML)
-
 │   │       └── application.properties --> Cấu hình database, cổng, logging
-
 ├── pom.xml
 
