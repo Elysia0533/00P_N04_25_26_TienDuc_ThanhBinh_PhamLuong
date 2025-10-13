@@ -5,15 +5,12 @@
 </head>
 <body style="margin:0; background:#181818; color:white; font-family:sans-serif;">
 
-    <!-- Sidebar -->
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <!-- Header -->
     <div th:replace="fragments/header :: header"></div>
 
-    <!-- Main Content -->
     <div style="margin-left:220px; padding:20px; margin-top:60px;">
-        <h2>🎵 Songs</h2>
+        <h2>Songs</h2>
 
         <form th:action="@{/songs}" method="post" style="margin-bottom:20px;">
             <input type="text" name="title" placeholder="Tên bài hát" required />

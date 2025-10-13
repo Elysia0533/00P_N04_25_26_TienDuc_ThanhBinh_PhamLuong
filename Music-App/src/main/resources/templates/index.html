@@ -10,17 +10,17 @@
 <div class="sidebar">
     <h3>Menu</h3>
     <a href="/">Home</a>
-    <a href="/songs">Songs</a>
-    <a href="/playlists">Playlists</a>
+    <a href="/Songs">Songs</a>
+    <a href="/Playlists">Playlists</a>
+    <a href="/Artists">Artists</a>
+    <a href="/Albums">Albums</a>
 </div>
 
 <div class="main">
     <h1 th:text="${title}">Welcome to Ellie Music</h1>
 
-    <!-- Search bar -->
     <input type="text" id="searchInput" placeholder="Search songs..." onkeyup="searchSongs()">
-
-    <!-- Danh sách bài hát -->
+->
     <div th:each="s : ${songs}" class="song">
         <b th:text="${s.title}"></b> —
         <span th:text="${s.artist.name}"></span>
@@ -28,9 +28,8 @@
     </div>
 </div>
 
-<!-- Player -->
 <div class="player">
-    🎵 Now Playing: <span id="player-text">Nothing</span>
+    Now Playing: <span id="player-text">Nothing</span>
 </div>
 </body>
 </html>
