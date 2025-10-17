@@ -1,28 +1,44 @@
 package Ellie.musicapp.Component;
 
+import Ellie.musicapp.model.User;
+import org.springframework.stereotype.Component;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-
-import Ellie.musicapp.model.User;
-
+@Component
 public class WriteToFile {
-    public void ToFile(ArrayList<User> u) {
-        try {
-            
-            int i = u.size() - 1;
-            FileWriter writer = new FileWriter("./complete/File/Login.txt", true);
-            writer.append("\n");
 
-            writer.write(u.get(i).getUsername(username));
-            writer.write(u.get(i).getEmail(email));
+    private static final String FILE_PATH = "./complete/File/Login.txt";
 
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error at write to File!");
-            e.printStackTrace();
+    public void logUserLogin(User user) {
+        if (user == null) {
+            System.out.println("No user data to log!");
+            return;
         }
 
+        try {
+            File file = new File(FILE_PATH);
+            file.getParentFile().mkdirs();
+
+            FileWriter writer = new FileWriter(file, true);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timestamp = LocalDateTime.now().format(formatter);
+
+            writer.write("[" + timestamp + "] ");
+            writer.write("User: " + user.getUsername() + " (" + user.getEmail() + ") logged in.\n");
+
+            writer.close();
+
+            System.out.println("Login logged for user: " + user.getUsername());
+
+        } catch (IOException e) {
+            System.out.println("Error while writing login log!");
+            e.printStackTrace();
+        }
     }
 }
