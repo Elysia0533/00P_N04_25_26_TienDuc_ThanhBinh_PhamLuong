@@ -1,4 +1,8 @@
-<public class Detergent extends Cleanser {
+package Ellie.musicapp.Controller.ex;
+
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Cleanup;
+
+public class Detergent extends Cleanup {
     public void scrub() {
         System.out.println("Detergent: scrub()");
     }

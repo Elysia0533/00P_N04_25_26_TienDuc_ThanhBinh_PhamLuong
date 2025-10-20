@@ -13,19 +13,24 @@ import java.util.List;
 public class FileController {
 
     private final List<User> users = new ArrayList<>();
-    private final WriteToFile writeToFile = new WriteToFile();
-    private final ReadFromFile readFromFile = new ReadFromFile();
 
-    //API: thêm user (giả lập login)
+    private final WriteToFile writeToFile;
+    private final ReadFromFile readFromFile;
+
+    public FileController(WriteToFile writeToFile, ReadFromFile readFromFile) {
+        this.writeToFile = writeToFile;
+        this.readFromFile = readFromFile;
+    }
+
     @PostMapping("/login")
     public String loginUser(@RequestParam String username, @RequestParam String email) {
         User user = new User(username, email, "password123");
         users.add(user);
+
         writeToFile.saveLoginHistory(users);
-        return "ser " + username + " đã đăng nhập và ghi file thành công!";
+        return "User " + username + " đã đăng nhập và ghi file thành công!";
     }
 
-    //API: đọc danh sách user đã đăng nhập
     @GetMapping("/history")
     public String getLoginHistory() {
         return readFromFile.readLoginHistory();
