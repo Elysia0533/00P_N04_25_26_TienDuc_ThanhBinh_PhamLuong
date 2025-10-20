@@ -1,17 +1,9 @@
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${title}">Music App</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <h1>My Music</h1>
-            <div>
-                <a th:href="@{/}" style="color:#fff; text-decoration:none; margin-right:1rem;">Home</a>
-                <a th:href="@{/library}" style="color:#fff; text-decoration:none; margin-right:1rem;">Library</a>
-                <a th:href="@{/login}" style="color:#fff; text-decoration:none;">Login</a>
-            </div>
-        </nav>
-    </header>
-</body>
+<div th:fragment="header" class="header">
+    <input type="text" placeholder="Bạn muốn phát nội dung gì?" class="search-bar">
+    <div class="header-buttons">
+        <a href="##">Premium</a>
+        <a href="##">Hỗ trợ</a>
+        <a href="##">Tải xuống</a>
+        <a href="/Login.html" class="login-btn">Đăng nhập</button>
+    </div>
+</div>
