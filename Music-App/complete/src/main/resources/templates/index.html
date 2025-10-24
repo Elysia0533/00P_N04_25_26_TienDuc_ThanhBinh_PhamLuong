@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Music App</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://kit.fontawesome.com/a2d9d5e6f6.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -12,7 +13,6 @@
 
 <div class="main-content">
     <h2>Những bài hát thịnh hành</h2>
-
     <div class="song-grid">
         <div class="song-card" th:each="s : ${songs}">
             <img th:src="@{${s.imageUrl}}" alt="cover">
@@ -27,6 +27,29 @@
             <img th:src="@{${a.imageUrl}}" alt="artist">
             <p th:text="${a.name}"></p>
         </div>
+    </div>
+</div>
+
+<div class="player">
+    <div class="song-info">
+        <img src="/Music-App/complete/src/main/resources/static/css/images/test.png" alt="Song img">
+        <div>
+            <b>Dancer In The Dark</b><br>
+            <span>jim Yosef</span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button><i class="fas fa-step-backward"></i></button>
+        <button><i class="fas fa-play-circle"></i></button>
+        <button><i class="fas fa-step-forward"></i></button>
+        <div class="progress">
+            <div></div>
+        </div>
+    </div>
+
+    <div class="extra">
+        <i class="fas fa-volume-up"></i>
     </div>
 </div>
 
