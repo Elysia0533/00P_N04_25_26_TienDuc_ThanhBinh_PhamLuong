@@ -1,4 +1,7 @@
 
+
+-----
+
 # 🎵 MusicApp - Quản lý Âm nhạc (OOP Project)
 
 Mã học phần: `00P_N04_25_26` | Nhóm: `Group11_OOP_NO2_term3_2025`
@@ -57,15 +60,19 @@ Mã học phần: `00P_N04_25_26` | Nhóm: `Group11_OOP_NO2_term3_2025`
 
 | Lĩnh vực | Công nghệ |
 | :--- | :--- |
-| **Backend** | ![icons](https://skillicons.dev/icons?i=java,spring,maven) (Java 17, Spring Boot, Maven) |
-| **Frontend** | ![icons](https://skillicons.dev/icons?i=html,css,thymeleaf) (HTML, CSS, Thymeleaf) |
-| **Database** | ![icons](https://skillicons.dev/icons?i=mysql) (MySQL) |
-| **Version Control** | ![icons](https://skillicons.dev/icons?i=git,github) (Git, Github) |
-| **IDE** | ![icons](https://skillicons.dev/icons?i=vscode,idea) (VSCode, IntelliJ IDEA) |
+| **Backend** | \<img src="[https://skillicons.dev/icons?i=java,spring,maven](https://skillicons.dev/icons?i=java,spring,maven)" /\> (Java 17, Spring Boot, Maven) |
+| **Frontend** | \<img src="[https://skillicons.dev/icons?i=html,css,thymeleaf](https://www.google.com/search?q=https://skillicons.dev/icons%3Fi%3Dhtml,css,thymeleaf)" /\> (HTML, CSS, Thymeleaf) |
+| **Database** | \<img src="[https://skillicons.dev/icons?i=mysql](https://www.google.com/search?q=https://skillicons.dev/icons%3Fi%3Dmysql)" /\> (MySQL) |
+| **Version Control** | \<img src="[https://skillicons.dev/icons?i=git,github](https://skillicons.dev/icons?i=git,github)" /\> (Git, Github) |
+| **IDE** | \<img src="[https://skillicons.dev/icons?i=vscode,idea](https://www.google.com/search?q=https://skillicons.dev/icons%3Fi%3Dvscode,idea)" /\> (VSCode, IntelliJ IDEA) |
 
 -----
 
 ## IV. Cấu trúc dự án
+
+Dự án được tổ chức theo kiến trúc Model-View-Controller (MVC) tiêu chuẩn của Spring Boot.
+
+```bash
 musicapp/
 ├── .mvn/
 ├── src/
@@ -207,4 +214,8 @@ flowchart TD
 ```
 
 #### CRUD: Song (Bài hát)
+
+*(Phần này cần được bổ sung, tương tự như Sơ đồ hoạt động của User và Playlist.)*
+
+-----
 
