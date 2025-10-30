@@ -1,9 +1,13 @@
-<div th:fragment="header" class="header">
-    <input type="text" placeholder="Bạn muốn phát nội dung gì?" class="search-bar">
+<div class="header" th:fragment="header">
+    <form th:action="@{/search}" method="get" class="search-container">
+        <input type="text" class="search-bar" name="query" placeholder="Tìm kiếm bài hát, nghệ sĩ..." />
+        <button type="submit" class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+
     <div class="header-buttons">
-        <a href="##">Premium</a>
-        <a href="##">Hỗ trợ</a>
-        <a href="##">Tải xuống</a>
-        <a href="/Login.html" class="login-btn">Đăng nhập</button>
+        <a th:href="@{/login}" class="login-btn">Đăng nhập</a>
+        <a th:href="@{/signup}">Đăng ký</a>
     </div>
 </div>

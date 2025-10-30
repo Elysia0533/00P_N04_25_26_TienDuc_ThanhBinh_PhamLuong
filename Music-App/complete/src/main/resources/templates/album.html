@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Album</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+    <div class="album-header">
+        <img th:src="@{${album.imageUrl}}" alt="album" class="album-cover">
+        <div>
+            <h1 th:text="${album.name}">Tên Album</h1>
+            <p th:text="'Nghệ sĩ: ' + ${album.artist.name}"></p>
+            <p th:text="'Thể loại: ' + ${album.genre}"></p>
+        </div>
+    </div>
+
+    <h2>Danh sách bài hát</h2>
+    <table class="album-songs">
+        <tr>
+            <th>#</th>
+            <th>Tên bài hát</th>
+            <th>Nghệ sĩ</th>
+            <th>Thời lượng</th>
+        </tr>
+        <tr th:each="song, iterStat : ${album.songs}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${song.title}"></td>
+            <td th:text="${song.artist}"></td>
+            <td th:text="${song.duration}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

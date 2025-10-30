@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -19,20 +23,32 @@ body {
 }
 
 .sidebar h2 {
-    color: #fff;
-    font-size: 20px;
-    margin-bottom: 30px;
+    color: #1DB954;
+    font-size: 22px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .sidebar a {
     color: #b3b3b3;
     text-decoration: none;
-    margin: 12px 0;
+    margin: 10px 0;
+    display: block;
     font-weight: 500;
+    padding: 8px 10px;
+    border-radius: 5px;
     transition: 0.3s;
 }
 
-.sidebar a:hover {
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #1DB954;
     color: #fff;
 }
 
@@ -47,31 +63,41 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
-    box-sizing: border-box;
     z-index: 10;
+    border-bottom: 1px solid #333;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #2a2a2a;
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 0 10px;
 }
 
 .search-bar {
-    width: 350px;
-    padding: 10px 15px;
-    border-radius: 25px;
+    width: 280px;
+    padding: 10px;
     border: none;
-    background-color: #2a2a2a;
+    background: none;
     color: white;
     outline: none;
-    font-size: 14px;
 }
 
-.search-bar::placeholder {
-    color: #888;
-}
-
-.header-buttons a {
-    margin-left: 20px;
+.search-btn {
+    background: none;
+    border: none;
     color: #b3b3b3;
-    text-decoration: none;
-    transition: 0.3s;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
 }
+
+.search-btn:hover {
+    color: #1DB954;
+}
+
 
 .header-buttons a:hover {
     color: #fff;
@@ -83,6 +109,7 @@ body {
     padding: 8px 18px;
     border-radius: 20px;
     font-weight: 600;
+    transition: 0.3s;
 }
 
 .login-btn:hover {
@@ -92,14 +119,16 @@ body {
 .main-content {
     margin-left: 220px;
     margin-top: 70px;
-    padding: 25px 30px 90px; /* chừa chỗ cho player */
+    padding: 25px 30px 100px;
     background-color: #181818;
     min-height: calc(100vh - 70px);
+    overflow-x: hidden;
 }
 
 .main-content h2 {
     margin-bottom: 20px;
     color: #fff;
+    font-size: 22px;
 }
 
 .song-grid {
@@ -167,7 +196,43 @@ body {
     margin-bottom: 10px;
 }
 
-/* Player */
+.playlist-card {
+    background-color: #282828;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.playlist-card:hover {
+    background-color: #333;
+}
+
+.playlist-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.profile-container {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.profile-container h2 {
+    margin-bottom: 5px;
+}
+
+.profile-container p {
+    color: #b3b3b3;
+}
+
 .player {
     position: fixed;
     bottom: 0;
@@ -195,6 +260,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 4px;
+    object-fit: cover;
 }
 
 .player .controls {
@@ -229,4 +295,81 @@ body {
     width: 40%;
     height: 100%;
     background-color: #1DB954;
+}
+
+.login-container, .signup-container {
+    background-color: #282828;
+    width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.login-container h2,
+.signup-container h2 {
+    margin-bottom: 20px;
+}
+
+.login-container input,
+.signup-container input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #121212;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+}
+
+.login-container button,
+.signup-container button {
+    width: 100%;
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-container button:hover,
+.signup-container button:hover {
+    background-color: #1ed760;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 180px;
+    }
+    .header {
+        left: 180px;
+    }
+    .main-content {
+        margin-left: 180px;
+    }
+    .player {
+        left: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+    .header {
+        left: 0;
+        padding: 0 15px;
+    }
+    .main-content {
+        margin-left: 0;
+        margin-top: 70px;
+    }
+    .player {
+        left: 0;
+    }
 }

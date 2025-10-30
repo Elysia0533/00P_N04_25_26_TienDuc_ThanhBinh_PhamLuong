@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hồ sơ cá nhân</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+    <div class="profile-container">
+        <img th:src="@{/css/images/profile.png}" alt="avatar" class="profile-avatar">
+        <h2 th:text="${user.username}">Tên người dùng</h2>
+        <p th:text="${user.email}">Email người dùng</p>
+
+        <h3>Playlist của bạn</h3>
+        <div class="playlist-grid">
+            <div class="playlist-card" th:each="pl : ${playlists}">
+                <img th:src="@{${pl.imageUrl}}" alt="playlist">
+                <p th:text="${pl.name}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
