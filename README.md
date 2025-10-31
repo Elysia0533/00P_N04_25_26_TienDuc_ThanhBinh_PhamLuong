@@ -15,15 +15,15 @@ Mã học phần: `00P_N04_25_26` | Nhóm: `Group11_OOP_NO2_term3_2025`
 
 ## 📋 Mục lục
 
-  * [I. Thành viên nhóm](https://www.google.com/search?q=%23i-th%C3%A0nh-vi%C3%AAn-nh%C3%B3m)
-  * [II. Tính năng chính](https://www.google.com/search?q=%23ii-t%C3%ADnh-n%C4%83ng-ch%C3%ADnh)
-  * [III. Các công nghệ sử dụng](https://www.google.com/search?q=%23iii-c%C3%A1c-c%C3%B4ng-ngh%E1%BB%87-s%E1%BB%AD-d%E1%BB%A5ng)
-  * [IV. Cấu trúc dự án](https://www.google.com/search?q=%23iv-c%E1%BA%A5u-tr%C3%BAc-d%E1%BB%B1-%C3%A1n)
-  * [V. Hướng dẫn cài đặt và chạy](https://www.google.com/search?q=%23v-h%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-c%C3%A0i-%C4%91%E1%BA%B7t-v%C3%A0-ch%E1%BA%A1y)
-  * [VI. Thiết kế hệ thống (UML)](https://www.google.com/search?q=%23vi-thi%E1%BA%BFt-k%E1%BA%BF-h%E1%BB%87-th%E1%BB%91ng-uml)
-      * [6.1 Sơ đồ Lớp (Class Diagram)](https://www.google.com/search?q=%2361-s%C6%A1-%C4%91%E1%BB%93-l%E1%BB%9Bp-class-diagram)
-      * [6.2 Sơ đồ Tuần tự (Sequence Diagram)](https://www.google.com/search?q=%2362-s%C6%A1-%C4%91%E1%BB%93-tu%E1%BA%A7n-t%E1%BB%B1-sequence-diagram)
-      * [6.3 Sơ đồ Hoạt động (Activity Diagram)](https://www.google.com/search?q=%2363-s%C6%A1-%C4%91%E1%BB%93-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-activity-diagram)
+  * [I. Thành viên nhóm](#i-thành-viên-nhóm)
+  * [II. Tính năng chính](#ii-tính-năng-chính)
+  * [III. Các công nghệ sử dụng](#iii-các-công-nghệ-sử-dụng)
+  * [IV. Cấu trúc dự án](#iv-cấu-trúc-dự-án)
+  * [V. Hướng dẫn cài đặt và chạy](#v-hướng-dẫn-cài-đặt-và-chạy)
+  * [VI. Thiết kế hệ thống (UML)](#vi-thiết-kế-hệ-thống-uml)
+      * [6.1 Sơ đồ Lớp (Class Diagram)](#61-sơ-đồ-lớp-class-diagram)
+      * [6.2 Sơ đồ Tuần tự (Sequence Diagram)](#62-sơ-đồ-tuần-tự-sequence-diagram)
+      * [6.3 Sơ đồ Hoạt động (Activity Diagram)](#63-sơ-đồ-hoạt-động-activity-diagram)
 
 -----
 
