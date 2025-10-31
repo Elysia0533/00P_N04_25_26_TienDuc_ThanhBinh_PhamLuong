@@ -4,7 +4,7 @@
 
 # 🎵 MusicApp - Quản lý Âm nhạc (OOP Project)
 
-Mã học phần: `00P_N04_25_26` | Nhóm: `Group11_OOP_NO2_term3_2025`
+Mã học phần: `00P_N04_25_26` | Nhóm: `Group7_OOP_NO2_2025`
 
 [](https://www.java.com)
 [](https://spring.io/projects/spring-boot)
@@ -12,18 +12,6 @@ Mã học phần: `00P_N04_25_26` | Nhóm: `Group11_OOP_NO2_term3_2025`
 [](https://www.thymeleaf.org/)
 
 > Ứng dụng web âm nhạc được xây dựng bằng **Java Spring Boot** và **Thymeleaf** với mục tiêu giúp người dùng quản lý thư viện nhạc cá nhân của mình một cách hiệu quả.
-
-## 📋 Mục lục
-
-  * [I. Thành viên nhóm](#i-thành-viên-nhóm)
-  * [II. Tính năng chính](#ii-tính-năng-chính)
-  * [III. Các công nghệ sử dụng](#iii-các-công-nghệ-sử-dụng)
-  * [IV. Cấu trúc dự án](#iv-cấu-trúc-dự-án)
-  * [V. Hướng dẫn cài đặt và chạy](#v-hướng-dẫn-cài-đặt-và-chạy)
-  * [VI. Thiết kế hệ thống (UML)](#vi-thiết-kế-hệ-thống-uml)
-      * [6.1 Sơ đồ Lớp (Class Diagram)](#61-sơ-đồ-lớp-class-diagram)
-      * [6.2 Sơ đồ Tuần tự (Sequence Diagram)](#62-sơ-đồ-tuần-tự-sequence-diagram)
-      * [6.3 Sơ đồ Hoạt động (Activity Diagram)](#63-sơ-đồ-hoạt-động-activity-diagram)
 
 -----
 
