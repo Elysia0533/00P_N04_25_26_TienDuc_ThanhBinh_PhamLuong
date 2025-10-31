@@ -2,7 +2,7 @@
 
 -----
 
-# 🎵 MusicApp - Quản lý Âm nhạc (OOP Project)
+#  MusicApp - Quản lý Âm nhạc (OOP Project)
 
 Mã học phần: `00P_N04_25_26` | Nhóm: `Group7_OOP_NO2_2025`
 
@@ -271,4 +271,196 @@ flowchart TB
 ```
 
 -----
+
+
+
+##  CRUD Song (Spring Boot + Thymeleaf)
+
+###  1. Mục tiêu
+
+Xây dựng tính năng **thêm, hiển thị và xóa bài hát** thông qua giao diện web sử dụng **Spring Boot + Thymeleaf + JPA**.
+
+---
+
+### 2. Cấu trúc thư mục
+
+```
+src/main/java/Ellie/musicapp
+ ┣  controller/SongController.java
+ ┣  model/Song.java
+ ┣  repository/SongRepository.java
+ ┗  service/SongService.java
+
+src/main/resources/templates
+ ┣  fragments/sidebar.html
+ ┣  fragments/header.html
+ ┗  songs.html
+```
+
+---
+
+###  3. Model – `Song.java`
+
+```java
+@Entity
+public class Song {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+    private String artist;
+    private String genre;
+    private String album;
+
+    // Getters & Setters
+}
+```
+
+---
+
+###  4. Repository – `SongRepository.java`
+
+```java
+public interface SongRepository extends JpaRepository<Song, Long> { }
+```
+
+---
+
+### 5. Service – `SongService.java`
+
+```java
+@Service
+public class SongService {
+    private final SongRepository repo;
+
+    public SongService(SongRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Song> getAllSongs() {
+        return repo.findAll();
+    }
+
+    public void addSong(Song song) {
+        repo.save(song);
+    }
+
+    public void deleteSong(Long id) {
+        repo.deleteById(id);
+    }
+}
+```
+
+---
+
+### 6. Controller – `SongController.java`
+
+```java
+@Controller
+@RequestMapping("/songs")
+public class SongController {
+    private final SongService service;
+
+    public SongController(SongService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public String listSongs(Model model) {
+        model.addAttribute("songs", service.getAllSongs());
+        return "songs";
+    }
+
+    @PostMapping
+    public String addSong(@ModelAttribute Song song) {
+        service.addSong(song);
+        return "redirect:/songs";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteSong(@PathVariable Long id) {
+        service.deleteSong(id);
+        return "redirect:/songs";
+    }
+}
+```
+
+---
+
+###  7. Giao diện – `songs.html`
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Songs</title>
+</head>
+<body style="margin:0; background:#181818; color:white; font-family:sans-serif;">
+
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div style="margin-left:220px; padding:20px; margin-top:60px;">
+        <h2>Songs</h2>
+
+        <form th:action="@{/songs}" method="post" style="margin-bottom:20px;">
+            <input type="text" name="title" placeholder="Tên bài hát" required />
+            <input type="text" name="artist" placeholder="Nghệ sĩ" required />
+            <input type="text" name="genre" placeholder="Thể loại" />
+            <input type="text" name="album" placeholder="Album" />
+            <button type="submit">Thêm bài hát</button>
+        </form>
+
+        <table border="0" style="width:100%; color:white;">
+            <tr style="border-bottom:1px solid #333; text-align:left;">
+                <th>Title</th><th>Artist</th><th>Genre</th><th>Album</th><th>Action</th>
+            </tr>
+            <tr th:each="song : ${songs}" style="border-bottom:1px solid #333;">
+                <td th:text="${song.title}"></td>
+                <td th:text="${song.artist}"></td>
+                <td th:text="${song.genre}"></td>
+                <td th:text="${song.album}"></td>
+                <td>
+                    <a th:href="@{'/songs/delete/' + ${song.id}}" style="color:#1DB954;">❌</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
+```
+
+---
+
+###  8. Chạy thử
+
+1. Khởi chạy ứng dụng Spring Boot:
+
+   ```bash
+   mvn spring-boot:run
+   ```
+
+2. Truy cập trình duyệt tại:
+    **[http://localhost:8080/songs](http://localhost:8080/songs)**
+
+3. Thực hiện:
+
+   * **Thêm bài hát** bằng form trên đầu trang
+   * **Xem danh sách bài hát** trong bảng
+   * **Xóa bài hát** bằng nút ❌
+
+---
+
+###  9. Kết quả
+
+Giao diện tối giản theo phong cách Spotify, hỗ trợ:
+
+* ➕ Thêm bài hát mới
+* 📜 Hiển thị danh sách bài hát
+* ❌ Xóa bài hát
+
+---
+
 
