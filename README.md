@@ -152,8 +152,16 @@ Sơ đồ lớp mô tả cấu trúc tĩnh của hệ thống, bao gồm các l�
 \<img width="488" height="517" alt="Class Diagram" src="[https://github.com/user-attachments/assets/431125fa-545c-4adb-b6cf-04b054098aaa](https://github.com/user-attachments/assets/431125fa-545c-4adb-b6cf-04b054098aaa)" /\>
 
 ### 6.2 Sơ đồ Tuần tự (Sequence Diagram)
+### 6.1 Sơ đồ Lớp (Class Diagram)
 
-*(Phần này cần được bổ sung để mô tả luồng tương tác giữa các đối tượng, ví dụ: "User thêm một Bài hát vào Playlist".)*
+Sơ đồ lớp mô tả cấu trúc tĩnh của hệ thống, bao gồm các lớp, thuộc tính và mối quan hệ giữa chúng.
+
+<img width="488" height="517" alt="Class Diagram" src="https://github.com/user-attachments/assets/431125fa-545c-4adb-b6cf-04b054098aaa" />
+
+### 6.2 Sơ đồ Tuần tự (Sequence Diagram)
+
+
+
 
 ### 6.3 Sơ đồ Hoạt động (Activity Diagram)
 
@@ -215,7 +223,64 @@ flowchart TD
 
 #### CRUD: Song (Bài hát)
 
-*(Phần này cần được bổ sung, tương tự như Sơ đồ hoạt động của User và Playlist.)*
+Sơ đồ mô tả các luồng hoạt động cơ bản cho việc quản lý Bài hát (Song)
+
+**1.Create**
+
+```mermaid
+flowchart TB
+    A1([Bắt đầu]) --> B1[Nhập thông tin bài hát]
+    B1 --> C1{Hợp lệ?}
+    C1 -->|Không| D1[Hiển thị lỗi]
+    C1 -->|Có| E1[Lưu vào CSDL]
+    E1 --> F1([Kết thúc])
+
+```
+
+**2. Read**
+
+```mermaid
+flowchart TB
+    A2([Bắt đầu]) --> B2[Mở danh sách bài hát]
+    B2 --> C2{Có tìm kiếm / lọc?}
+    C2 -->|Không| D2[Hiển thị tất cả]
+    C2 -->|Có| E2[Hiển thị kết quả phù hợp]
+    D2 --> F2([Kết thúc])
+    E2 --> F2
+
+```
+
+**3. Update**
+
+```mermaid
+flowchart TB
+    A([Bắt đầu]) --> B[Chọn bài hát cần sửa]
+    B --> C[Tải thông tin chi tiết]
+    C --> D[Người dùng chỉnh sửa thông tin]
+    D --> E{Hợp lệ?}
+    E -->|Không| F[Hiển thị lỗi]
+    E -->|Có| G[Lưu thay đổi vào CSDL]
+    G --> H{Lưu thành công?}
+    H -->|Không| I[Hiển thị lỗi lưu]
+    H -->|Có| J[Hiển thị: Cập nhật thành công]
+    J --> K([Kết thúc])
+    F --> K
+    I --> K
+
+```
+
+**4. Delete**
+
+```mermaid
+flowchart TB
+    A4([Bắt đầu]) --> B4[Chọn bài hát muốn xóa]
+    B4 --> C4{Xác nhận xóa?}
+    C4 -->|Không| D4[Hủy thao tác]
+    C4 -->|Có| E4[Xóa khỏi CSDL]
+    E4 --> F4([Kết thúc])
+    D4 --> F4
+
+```
 
 -----
 
