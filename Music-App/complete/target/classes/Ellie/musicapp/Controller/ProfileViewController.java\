@@ -1,0 +1,36 @@
+package Ellie.musicapp.Controller;
+
+import Ellie.musicapp.model.Artist;
+import Ellie.musicapp.model.Song;
+import Ellie.musicapp.repository.ArtistRepository;
+import Ellie.musicapp.repository.SongRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
+
+@Controller
+public class ProfileViewController {
+
+    @Autowired
+    private ArtistRepository artistRepository;
+
+    @Autowired
+    private SongRepository songRepository;
+
+    @GetMapping("/artist/{id}")
+    public String showArtistProfile(@PathVariable Long id, Model model) {
+        Artist artist = artistRepository.findById(id).orElse(null);
+        List<Song> songs = songRepository.findAll()
+                                         .stream()
+                                         .filter(s -> s.getArtist().getId().equals(id))
+                                         .toList();
+
+        model.addAttribute("artist", artist);
+        model.addAttribute("songs", songs);
+        return "artist";
+    }
+}

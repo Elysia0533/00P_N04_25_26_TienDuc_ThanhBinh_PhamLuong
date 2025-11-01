@@ -1,43 +1,52 @@
 package Ellie.musicapp.service;
 
-import Ellie.musicapp.model.Song;
-import Ellie.musicapp.model.Genre;
-
+import Ellie.musicapp.model.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SongService {
     private List<Song> songs;
 
     public SongService() {
         this.songs = new ArrayList<>();
-        // Dữ liệu mẫu
-        songs.add(new Song(1, "The same dusk, The same sky", "KOHTA YAMAMOTO", "86 Original Sound Track", Genre.POP, "/music/Thesameduskthesamesky.mp3"));
-        songs.add(new Song(2, "4n-SHIN", "Sawano Hiroyuki", "86 Original Sound Track", Genre.POP, "/music/4nshin.mp3"));
-        songs.add(new Song(3, "TIAN TIAN", "Mili", "Limbus Company", Genre.POP, "/music/TIANTIAN.mp3"));
+
+        Artist sawano = new Artist("Sawano Hiroyuki", "Japan");
+        Artist mili = new Artist("Mili", "Japan");
+        Artist yoasobi = new Artist("YOASOBI", "Japan");
+        Artist alan = new Artist("Alan Walker", "UK");
+
+        Album a86 = new Album("86 Original Soundtrack", 2021, sawano);
+        Album limbus = new Album("Limbus Company", 2023, mili);
+        Album theBook = new Album("THE BOOK", 2021, yoasobi);
+        Album worldOfWalker = new Album("World of Walker", 2018, alan);
+
+        Genre pop = new Genre();
+        pop.setName("Pop");
+
+        Genre electronic = new Genre();
+        electronic.setName("Electronic");
+
+        songs.add(new Song("The Same Dusk, The Same Sky", 240, "/images/86.jpg", sawano, a86, pop));
+        songs.add(new Song("4-n SHIN", 220, "/images/4nshin.jpg", sawano, a86, pop));
+        songs.add(new Song("Dancer in the Dark", 230, "/images/yoasobi.jpg", yoasobi, theBook, pop));
+        songs.add(new Song("TIAN TIAN", 200, "/images/limbus.jpg", mili, limbus, pop));
+        songs.add(new Song("Darkside", 210, "/images/alanwalker.jpg", alan, worldOfWalker, electronic));
+        songs.add(new Song("Faded", 195, "/images/alanwalker.jpg", alan, worldOfWalker, electronic));
     }
 
     public List<Song> getAllSongs() {
         return songs;
     }
 
-    public Song getSongById(int id) {
-        return songs.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
-    }
-
-    public List<Song> searchByTitle(String keyword) {
-        return songs.stream()
-                .filter(s -> s.getTitle().toLowerCase().contains(keyword.toLowerCase()))
-                .collect(Collectors.toList());
+    public Song getSongById(Long id) {
+        return songs.stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
     }
 
     public void addSong(Song song) {
         songs.add(song);
     }
 
-    public void removeSong(int id) {
-        songs.removeIf(s -> s.getId() == id);
+    public void removeSong(Long id) {
+        songs.removeIf(s -> s.getId().equals(id));
     }
 }
-

@@ -19,8 +19,8 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/songs")
-    public String songs() {
+    @GetMapping("/songs-page")
+    public String songsPage() {
         return "songs";
     }
 
