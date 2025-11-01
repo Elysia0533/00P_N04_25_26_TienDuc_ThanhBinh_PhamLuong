@@ -12,7 +12,7 @@
 
 <div class="main-content">
     <div class="artist-header">
-        <img th:src="@{${artist.imageUrl}}" alt="artist-image" class="artist-cover">
+        <img th:src="${artist.imageUrl}" alt="artist-image" class="artist-cover">
         <div>
             <h1 th:text="${artist.name}">Nghệ sĩ</h1>
             <p th:text="${artist.bio}">Mô tả nghệ sĩ...</p>
@@ -22,9 +22,9 @@
     <h2>Bài hát nổi bật</h2>
     <div class="song-grid">
         <div class="song-card" th:each="song : ${songs}">
-            <img th:src="@{${song.imageUrl}}" alt="song">
-            <p th:text="${song.title}"></p>
-            <p th:text="${song.album}"></p>
+            <img th:src="${song.imageUrl}" alt="song">
+            <p th:text="${song.title}">Tên bài hát</p>
+            <p th:text="${song.album}">Tên album</p>
         </div>
     </div>
 </div>

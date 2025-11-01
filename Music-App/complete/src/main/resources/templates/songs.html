@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Songs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body style="margin:0; background:#181818; color:white; font-family:sans-serif;">
 
@@ -20,10 +21,6 @@
             <button type="submit">Thêm bài hát</button>
         </form>
 
-        <table border="0" style="width:100%; color:white;">
-            <tr style="border-bottom:1px solid #333; text-align:left;">
-                <th>Title</th><th>Artist</th><th>Genre</th><th>Album</th><th>Action</th>
-            </tr>
             <tr th:each="song : ${songs}" style="border-bottom:1px solid #333;">
                 <td th:text="${song.title}"></td>
                 <td th:text="${song.artist}"></td>

@@ -1,9 +1,15 @@
 package Ellie.musicapp.Controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import Ellie.musicapp.model.Artist;
+import Ellie.musicapp.repository.ArtistRepository;
+
 
 @Controller
 public class PageController {
@@ -33,23 +39,25 @@ public class PageController {
         return "signup";
     }
 
-    @GetMapping("/artist")
-    public String artist(Model model) {
-        model.addAttribute("artist", new Object());
-        model.addAttribute("songs", new Object());
+    @Autowired
+private ArtistRepository artistRepository;
+
+    @GetMapping("/artist/{id}")
+    public String artist(@PathVariable Long id, Model model) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy nghệ sĩ ID: " + id));
+        model.addAttribute("artist", artist);
         return "artist";
-    }
+}
+
 
     @GetMapping("/album")
-    public String album(Model model) {
-        model.addAttribute("album", new Object());
+    public String album() {
         return "album";
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
-        model.addAttribute("user", new Object());
-        model.addAttribute("playlists", new Object());
+    public String profile() {
         return "profile";
     }
 }
