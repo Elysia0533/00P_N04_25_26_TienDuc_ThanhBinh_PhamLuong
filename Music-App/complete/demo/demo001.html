@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App Demo (Max Content)</title>
+    
+    <style>
+
+        /* 1. CSS CƠ BẢN */
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
+            height: 100%;
+        }
+        a {
+            color: #b3b3b3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover { color: #FFFFFF; }
+        h2 { font-size: 1.8rem; margin: 32px 0 20px 0; }
+        h2:first-child { margin-top: 0; }
+        button, .button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            background-color: #1DB954;
+            color: #FFFFFF;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none; /* Cho thẻ <a> */
+            display: inline-block;
+        }
+        .button-secondary {
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+
+        /* 2. BỐ CỤC CHÍNH */
+
+        .app-container { display: flex; height: 100vh; }
+        .main-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 24px 32px;
+        }
+
+        /* 3. SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            background-color: #000000;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+        .sidebar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1DB954; 
+            margin-bottom: 24px;
+        }
+        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar nav li { padding: 10px 0; }
+        .sidebar nav a {
+            font-size: 1rem;
+            font-weight: bold;
+            display: block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer; /* Biến thành con trỏ */
+        }
+        .sidebar nav a.active {
+            background-color: #282828;
+            color: #FFFFFF;
+        }
+
+
+        /* 4. HEADER */
+
+        .header {
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .header .search-bar input {
+            width: 350px;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 50px;
+            background-color: #282828;
+            color: #FFFFFF;
+            font-size: 0.9rem;
+        }
+        .header .auth-buttons a {
+            font-weight: bold;
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-left: 8px;
+            cursor: pointer; 
+        }
+        .header .auth-buttons .login-btn {
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+        .header .auth-buttons .register-btn { color: #b3b3b3; }
+        .header .auth-buttons .register-btn:hover { color: #FFFFFF; }
+        
+        /* 5. GIAO DIỆN CARD */
+        
+        .card-grid {
+            display: flex; 
+            gap: 24px; 
+            overflow-x: auto; 
+            padding-bottom: 20px; 
+        }
+        .music-card {
+            display: block; 
+            background-color: #181818;
+            border-radius: 8px;
+            padding: 16px;
+            width: 180px;
+            flex-shrink: 0; 
+            transition: background-color 0.3s;
+        }
+        .music-card:hover {
+            background-color: #282828;
+        }
+        .music-card img {
+            width: 100%;
+            height: 180px; 
+            object-fit: cover; 
+            border-radius: 6px; 
+            margin-bottom: 12px;
+            background-color: #333; 
+        }
+        .music-card h4 {
+            color: #FFFFFF;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+        .music-card p {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        /* Card Nghệ sĩ */
+        .music-card.artist-card img {
+            border-radius: 50%; 
+        }
+
+        /* Bố cục Grid */
+        .page-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+             gap: 24px;
+             padding-bottom: 20px;
+         }
+
+        /* 6. NỘI DUNG FORM */
+        
+        .form-section {
+            background-color: #181818;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            max-width: 500px; 
+        }
+        .form-section form { display: flex; gap: 16px; flex-wrap: wrap; }
+        .form-section input[type="text"] {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: 1px solid #535353;
+            border-radius: 4px;
+            background-color: #3E3E3E;
+            color: #FFFFFF;
+        }
+        
+        /* Form Đăng nhập / Đăng ký  */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+        }
+        .auth-box {
+            background-color: #181818;
+            padding: 32px;
+            border-radius: 8px;
+            width: 350px;
+            text-align: center;
+        }
+        .auth-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            box-sizing: border-box; 
+            border: 1px solid #535353;
+            border-radius: 4px;
+            background-color: #3E3E3E;
+            color: #FFFFFF;
+        }
+        .auth-box button {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* 7. TRANG HỒ SƠ */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .profile-header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .profile-header h2 {
+             margin: 0;
+        }
+        .auth-prompt-box {
+            background-color: #181818;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            max-width: 450px;
+            margin: 40px auto;
+        }
+        .auth-prompt-box p {
+            color: #b3b3b3;
+            font-size: 1rem;
+            margin-top: 0;
+        }
+        .auth-prompt-box .buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* 8. BẢNG (QUẢN LÝ / ĐỀ XUẤT) */
+        /* Bảng Quản lý */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 12px 8px;
+            border-bottom: 1px solid #282828;
+        }
+        .data-table th {
+            color: #b3b3b3;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .data-table .delete-btn {
+            color: #E60023;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Danh sách đề xuất Playlist */
+        .song-suggestion-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .song-list-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .song-list-item:hover {
+            background-color: #282828;
+        }
+        .song-list-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        .song-list-item .song-info {
+            flex-grow: 1; /* Chiếm hết không gian */
+        }
+        .song-list-item .song-info h4 {
+            font-size: 1rem;
+            margin: 0;
+            color: #FFFFFF;
+        }
+        .song-list-item .song-info p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #b3b3b3;
+        }
+        .song-list-item .add-song-btn {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1DB954;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 50%;
+            margin-left: auto; /* Đẩy nút sang phải */
+            flex-shrink: 0;
+        }
+         .song-list-item .add-song-btn:hover {
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <h1 class="logo">Music App</h1>
+            
+            <nav>
+                <ul id="sidebar-nav">
+                    <li><a id="link-home" onclick="showPage('page-home'); setActiveSidebar(this)" class="page-link">Trang chủ</a></li>
+                    <li><a id="link-songs" onclick="showPage('page-songs'); setActiveSidebar(this)" class="page-link">Bài hát</a></li>
+                    <li><a id="link-playlists" onclick="showPage('page-playlists'); setActiveSidebar(this)" class="page-link">Playlist</a></li>
+                    <li><a id="link-artists" onclick="showPage('page-artists'); setActiveSidebar(this)" class="page-link">Nghệ sĩ</a></li>
+                    <li><a id="link-albums" onclick="showPage('page-albums'); setActiveSidebar(this)" class="page-link">Album</a></li>
+                    <li><a id="link-profile" onclick="showPage('page-profile'); setActiveSidebar(this)" class="page-link">Hồ sơ</a></li>
+                    <br/>
+                    <li><a id="link-login" onclick="showPage('page-login'); setActiveSidebar(this)" class="page-link">Đăng nhập</a></li>
+                    <li><a id="link-register" onclick="showPage('page-register'); setActiveSidebar(this)" class="page-link">Đăng ký</a></li>
+                    <li><a id="link-logout" onclick="logOut()" class="page-link" style="display: none;">Đăng xuất</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="header" id="main-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Tìm kiếm bài hát, nghệ sĩ...">
+                </div>
+                <div class="auth-buttons" id="header-auth-buttons">
+                    <a id="header-login-btn" onclick="showPage('page-login'); setActiveSidebar(document.getElementById('link-login'))" class="login-btn">Đăng nhập</a>
+                    <a id="header-register-btn" onclick="showPage('page-register'); setActiveSidebar(document.getElementById('link-register'))" class="register-btn">Đăng ký</a>
+                </div>
+            </header>
+
+            <section class="page" id="page-home" style="display: none;">
+                
+                <h2>Top thịnh hành</h2>
+                <div class="card-grid">
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song2/180/180" alt="Song cover">
+                        <h4>Từng Quen</h4>
+                        <p>Wren Evans</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song3/180/180" alt="Song cover">
+                        <h4>Chúng ta của tương lai</h4>
+                        <p>Sơn Tùng M-TP</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song1/180/180" alt="Song cover">
+                        <h4>Sau lời từ khước</h4>
+                        <p>Phan Mạnh Quỳnh</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song4/180/180" alt="Song cover">
+                        <h4>Đưa em về nhà</h4>
+                        <p>GREY D, Chillies</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song5/180/180" alt="Song cover">
+                        <h4>Một Ngày Chẳng Nắng</h4>
+                        <p>Pháo</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song6/180/180" alt="Song cover">
+                        <h4>Ghé qua</h4>
+                        <p>Dick, Tofu, PC</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song7/180/180" alt="Song cover">
+                        <h4>Không thể say</h4>
+                        <p>HIEUTHUHAI</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song8/180/180" alt="Song cover">
+                        <h4>Chìm Sâu</h4>
+                        <p>MCK, Trung Trần</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song9/180/180" alt="Song cover">
+                        <h4>Ngày Mai Người Ta Lấy Chồng</h4>
+                        <p>Thành Đạt</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song10/180/180" alt="Song cover">
+                        <h4>Lạ Lùng</h4>
+                        <p>Vũ.</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song11/180/180" alt="Song cover">
+                        <h4>Ánh Nắng Của Anh</h4>
+                        <p>Đức Phúc</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song16/180/180" alt="Song cover">
+                        <h4>Waiting For You</h4>
+                        <p>MONO</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/song17/180/180" alt="Song cover">
+                        <h4>Nấu Ăn Cho Em</h4>
+                        <p>Đen Vâu</p>
+                    </a>
+                </div>
+                
+                <h2>Nghệ sĩ phổ biến</h2>
+                 <div class="card-grid">
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist1.jpg" alt="Artist">
+                        <h4>Rhymastic</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist2.jpg" alt="Artist">
+                        <h4>Wren Evans</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist3.jpg" alt="Artist">
+                        <h4>Sơn Tùng M-TP</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist6.jpg" alt="Artist">
+                        <h4>MCK</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist7.jpg" alt="Artist">
+                        <h4>Phan Mạnh Quỳnh</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist9.jpg" alt="Artist">
+                        <h4>Taylor Swift</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist12.jpg" alt="Artist">
+                        <h4>Đen Vâu</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist13.jpg" alt="Artist">
+                        <h4>Hà Anh Tuấn</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist14.jpg" alt="Artist">
+                        <h4>Bích Phương</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist11.jpg" alt="Artist">
+                        <h4>The Weeknd</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist15.jpg" alt="Artist">
+                        <h4>Vũ.</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist18.jpg" alt="Artist">
+                        <h4>AMEE</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist20.jpg" alt="Artist">
+                        <h4>HIEUTHUHAI</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                </div>
+
+                <h2>Album đề xuất</h2>
+                <div class="card-grid">
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album1/180/180" alt="Album cover">
+                        <h4>Loi Choi</h4>
+                        <p>Wren Evans</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us1/180/180" alt="Album cover">
+                        <h4>Midnights</h4>
+                        <p>Taylor Swift</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us3/180/180" alt="Album cover">
+                        <h4>Eternal sunshine</h4>
+                        <p>Ariana Grande</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album10/180/180" alt="Album cover">
+                        <h4>Vũ trụ cò bay</h4>
+                        <p>Phương Mỹ Chi</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us6/180/180" alt="Album cover">
+                        <h4>Dawn FM</h4>
+                        <p>The Weeknd</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album4/180/180" alt="Album cover">
+                        <h4>99%</h4>
+                        <p>MCK</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album12/180/180" alt="Album cover">
+                        <h4>22</h4>
+                        <p>Hoàng Dũng</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album13/180/180" alt="Album cover">
+                        <h4>Một vạn năm</h4>
+                        <p>Vũ.</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us4/180/180" alt="Album cover">
+                        <h4>Utopia</h4>
+                        <p>Travis Scott</p>
+                    </a>
+                </div>
+            </section>
+            
+            <section class="page" id="page-songs" style="display: none;">
+                
+                <div id="songs-content-guest">
+                    <h2>Bài hát đề xuất</h2>
+                    <div class="page-grid">
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song5/180/180" alt="Song cover">
+                            <h4>Một Ngày Chẳng Nắng</h4>
+                            <p>Pháo</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song6/180/180" alt="Song cover">
+                            <h4>Ghé qua</h4>
+                            <p>Dick, Tofu, PC</p>
+                        </a>
+                         <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song7/180/180" alt="Song cover">
+                            <h4>Không thể say</h4>
+                            <p>HIEUTHUHAI</p>
+                        </a>
+                         <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song8/180/180" alt="Song cover">
+                            <h4>Chìm Sâu</h4>
+                            <p>MCK, Trung Trần</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song10/180/180" alt="Song cover">
+                            <h4>Lạ Lùng</h4>
+                            <p>Vũ.</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song11/180/180" alt="Song cover">
+                            <h4>Ánh Nắng Của Anh</h4>
+                            <p>Đức Phúc</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song13/180/180" alt="Song cover">
+                            <h4>Chuyện Đôi Ta</h4>
+                            <p>Emcee L</p>
+                        </a>
+                         <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song14/180/180" alt="Song cover">
+                            <h4>Chỉ Một Đêm Nữa Thôi</h4>
+                            <p>MCK, Tlinh</p>
+                        </a>
+                         <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song15/180/180" alt="Song cover">
+                            <h4>Anh Đã Ổn Hơn</h4>
+                            <p>MCK</p>
+                        </a>
+                         <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song16/180/180" alt="Song cover">
+                            <h4>Waiting For You</h4>
+                            <p>MONO</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song18/180/180" alt="Song cover">
+                            <h4>Vì Mẹ Anh Bắt Chia Tay</h4>
+                            <p>Miu Lê, Karik</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song19/180/180" alt="Song cover">
+                            <h4>Em Gái Mưa</h4>
+                            <p>Hương Tràm</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song20/180/180" alt="Song cover">
+                            <h4>Bật Tình Yêu Lên</h4>
+                            <p>Hòa Minzy, Tăng Duy Tân</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song21/180/180" alt="Song cover">
+                            <h4>See Tình</h4>
+                            <p>Hoàng Thùy Linh</p>
+                        </a>
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/song22/180/180" alt="Song cover">
+                            <h4>Bên Trên Tầng Lầu</h4>
+                            <p>Tăng Duy Tân</p>
+                        </a>
+                    </div>
+                </div>
+                
+                <div id="songs-content-admin" style="display: none;">
+                    <h2>Quản lý Bài hát (Admin)</h2>
+                    <div class="form-section">
+                        <form>
+                            <input type="text" placeholder="Tên bài hát" />
+                            <input type="text" placeholder="Nghệ sĩ" />
+                            <button type="submit">Thêm bài hát</button>
+                        </form>
+                    </div>
+                    <table class="data-table">
+                        <thead> <tr> <th>Tên bài hát</th> <th>Nghệ sĩ</th> <th>Xóa</th> </tr> </thead>
+                        <tbody>
+                            <tr> <td>Sau lời từ khước</td> <td>Phan Mạnh Quỳnh</td> <td><a href="#" class="delete-btn">X</a></td> </tr>
+                            <tr> <td>Từng Quen</td> <td>Wren Evans</td> <td><a href="#" class="delete-btn">X</a></td> </tr>
+                            <tr> <td>Chìm Sâu</td> <td>MCK</td> <td><a href="#" class="delete-btn">X</a></td> </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </section>
+
+            <section class="page" id="page-playlists" style="display: none;">
+                <h2>Quản lý Playlists</h2>
+                <div class="form-section">
+                    <form>
+                        <input type="text" placeholder="Tên Playlist" />
+                        <button type"submit">Thêm Playlist</button>
+                    </form>
+                </div>
+                <h2>Đề xuất bài hát</h2>
+                <div class="song-suggestion-list">
+                    <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song6/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Ghé qua</h4>
+                            <p>Dick, Tofu, PC</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                    <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song5/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Một Ngày Chẳng Nắng</h4>
+                            <p>Pháo</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                    <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song2/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Từng Quen</h4>
+                            <p>Wren Evans</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                     <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song4/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Đưa em về nhà</h4>
+                            <p>GREY D, Chillies</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                    <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song10/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Lạ Lùng</h4>
+                            <p>Vũ.</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                     <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song16/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Waiting For You</h4>
+                            <p>MONO</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                     <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song14/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Chỉ Một Đêm Nữa Thôi</h4>
+                            <p>MCK, Tlinh</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                     <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song15/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>Anh Đã Ổn Hơn</h4>
+                            <p>MCK</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                     <div class="song-list-item">
+                        <img src="https://picsum.photos/seed/song21/40/40" alt="cover">
+                        <div class="song-info">
+                            <h4>See Tình</h4>
+                            <p>Hoàng Thùy Linh</p>
+                        </div>
+                        <span class="add-song-btn" onclick="alert('Đã thêm!')">+</span>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="page" id="page-artists" style="display: none;">
+                <h2>Nghệ sĩ</h2>
+                 <div class="page-grid">
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist1.jpg" alt="Artist">
+                        <h4>Rhymastic</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist2.jpg" alt="Artist">
+                        <h4>Wren Evans</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist3.jpg" alt="Artist">
+                        <h4>Sơn Tùng M-TP</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist4.webp" alt="Artist">
+                        <h4>GREY D</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist5.jpg" alt="Artist">
+                        <h4>Hồ Ngọc Hà</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist6.jpg" alt="Artist">
+                        <h4>MCK</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist7.jpg" alt="Artist">
+                        <h4>Phan Mạnh Quỳnh</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist8.jpg" alt="Artist">
+                        <h4>Văn Mai Hương</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist9.jpg" alt="Artist">
+                        <h4>Taylor Swift</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist10.jpg" alt="Artist">
+                        <h4>Ariana Grande</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist11.jpg" alt="Artist">
+                        <h4>The Weeknd</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist12.jpg" alt="Artist">
+                        <h4>Đen Vâu</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist13.jpg" alt="Artist">
+                        <h4>Hà Anh Tuấn</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                    <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist14.jpg" alt="Artist">
+                        <h4>Bích Phương</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist15.jpg" alt="Artist">
+                        <h4>Vũ.</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist16.jpg" alt="Artist">
+                        <h4>Hoàng Dũng</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist17.jpg" alt="Artist">
+                        <h4>JustaTee</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist18.jpg" alt="Artist">
+                        <h4>AMEE</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist19.webp" alt="Artist">
+                        <h4>Pháo</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                     <a href="#" class="music-card artist-card">
+                        <img src="images/artists/artist20.jpg" alt="Artist">
+                        <h4>HIEUTHUHAI</h4>
+                        <p>Nghệ sĩ</p>
+                    </a>
+                </div>
+            </section>
+            
+            <section class="page" id="page-albums" style="display: none;"> 
+                <h2>Album Nhạc Việt</h2>
+                <div class="page-grid">
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album1/180/180" alt="Album cover">
+                        <h4>Loi Choi</h4>
+                        <p>Wren Evans</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album2/180/180" alt="Album cover">
+                        <h4>Minh Tinh</h4>
+                        <p>Văn Mai Hương</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album3/180/180" alt="Album cover">
+                        <h4>The Playah</h4>
+                        <p>Soobin</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album4/180/180" alt="Album cover">
+                        <h4>99%</h4>
+                        <p>MCK</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album5/180/180" alt="Album cover">
+                        <h4>Ai Cũng Phải Bắt Đầu Từ Đâu Đó</h4>
+                        <p>HIEUTHUHAI</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album6/180/180" alt="Album cover">
+                        <h4>Link</h4>
+                        <p>Hoàng Thùy Linh</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album10/180/180" alt="Album cover">
+                        <h4>Vũ trụ cò bay</h4>
+                        <p>Phương Mỹ Chi</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album11/180/180" alt="Album cover">
+                        <h4>dreAMEE</h4>
+                        <p>AMEE</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album12/180/180" alt="Album cover">
+                        <h4>22</h4>
+                        <p>Hoàng Dũng</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/180/180" alt="Album cover">
+                        <h4>Một vạn năm</h4>
+                        <p>Vũ.</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album14/180/180" alt="Album cover">
+                        <h4>ái</h4>
+                        <p>tlinh</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album15/180/180" alt="Album cover">
+                        <h4>Gieo</h4>
+                        <p>K-ICM</p>
+                    </a>
+                </div>
+                
+                <h2>Album Quốc tế</h2>
+                <div class="page-grid">
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us1/180/180" alt="Album cover">
+                        <h4>Midnights</h4>
+                        <p>Taylor Swift</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https: //picsum.photos/seed/album-us2/180/180" alt="Album cover">
+                        <h4>SOS</h4>
+                        <p>SZA</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us3/180/180" alt="Album cover">
+                        <h4>eternal sunshine</h4>
+                        <p>Ariana Grande</p>
+                    </a>
+                     <a href="#" classS="music-card">
+                        <img src="https://picsum.photos/seed/album-us4/180/180" alt="Album cover">
+                        <h4>Utopia</h4>
+                        <p>Travis Scott</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us5/180/180" alt="Album cover">
+                        <h4>Heroes & Villains</h4>
+                        <p>Metro Boomin</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us6/180/180" alt="Album cover">
+                        <h4>Dawn FM</h4>
+                        <p>The Weeknd</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us7/180/180" alt="Album cover">
+                        <h4>GUTS</h4>
+                        <p>Olivia Rodrigo</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us8/180/180" alt="Album cover">
+                        <h4>Harry's House</h4>
+                        <p>Harry Styles</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us9/180/180" alt="Album cover">
+                        <h4>After Hours</h4>
+                        <p>The Weeknd</p>
+                    </a>
+                    <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us10/180/180" alt="Album cover">
+                        <h4>folklore</h4>
+                        <p>Taylor Swift</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us11/180/180" alt="Album cover">
+                        <h4>Born To Die</h4>
+                        <p>Lana Del Rey</p>
+                    </a>
+                     <a href="#" class="music-card">
+                        <img src="https://picsum.photos/seed/album-us12/180/180" alt="Album cover">
+                        <h4>HITR</h4>
+                        <p>Bad Bunny</p>
+                    </a>
+                </div>
+            </section>
+
+            <section class="page" id="page-login" style="display: none;">
+                <div class="auth-container">
+                    <div class="auth-box">
+                        <h2>Đăng nhập vào Music App</h2>
+                        <form onsubmit="event.preventDefault(); logIn();">
+                            <input type="text" placeholder="Tên người dùng" required />
+                            <input type="password" placeholder="Mật khẩu" required />
+                            <button type="submit">Đăng nhập</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="page" id="page-register" style="display: none;">
+                <div class="auth-container">
+                    <div class="auth-box">
+                        <h2>Đăng ký tài khoản</h2>
+                        <form onsubmit="event.preventDefault(); alert('Đã đăng ký (demo)!');">
+                            <input type="text" placeholder="Tên người dùng" required />
+                            <input type="email" placeholder="Email" required />
+                            <input type="password" placeholder="Mật khẩu" required />
+                            <input type="password" placeholder="Xác nhận mật khẩu" required />
+                            <button type="submit">Đăng ký</d>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="page" id="page-profile" style="display: none;">
+                <div id="profile-content-loggedOut" style="display: none;">
+                    <div class="auth-prompt-box">
+                        <h2>Yêu cầu đăng nhập</h2>
+                        <p>Bạn cần đăng nhập để xem hồ sơ và thư viện cá nhân của mình.</p>
+                        <div class="buttons">
+                             <a onclick="showPage('page-login'); setActiveSidebar(document.getElementById('link-login'))" class="button button-secondary">Đăng nhập</a>
+                             <a onclick="showPage('page-register'); setActiveSidebar(document.getElementById('link-register'))" class="button">Đăng ký</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="profile-content-loggedIn" style="display: none;">
+                    <div class="profile-header">
+                        <img src="images/avatars/user.jpg" alt="Avatar">
+                        <div>
+                            <p>Hồ sơ</p>
+                            <h2>Trường học</h2> </div>
+                    </div>
+                    <h2>Playlist yêu thích</h2>
+                    <div class="card-grid">
+                        <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/playlist1/180/180" alt="Playlist cover">
+                            <h4>Nhạc Lofi để code</h4>
+                            <p>Của bạn</p>
+                        </a>
+                         <a href="#" class="music-card">
+                            <img src="https://picsum.photos/seed/playlist2/180/180" alt="Playlist cover">
+                            <h4>US-UK Hits</h4>
+                            <p>Của bạn</p>
+                        </a>
+                    </div>
+                    <h2>Nghệ sĩ yêu thích</h2>
+                    <div class="card-grid">
+                         <a href="#" class="music-card artist-card">
+                            <img src="images/artists/artist2.jpg" alt="Artist">
+                            <h4>Wren Evans</h4>
+                            <p>Nghệ sĩ</p>
+                        </a>
+                         <a href="#" class="music-card artist-card">
+                            <img src="images/artists/artist9.jpg" alt="Artist">
+                            <h4>Taylor Swift</h4>
+                            <p>Nghệ sĩ</p>
+                        </a>
+                    </div>
+                    <br><br>
+                    <button onclick="logOut()">Đăng xuất</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Biến toàn cục để lưu trạng thái đăng nhập (true = đã đăng nhập)
+        let isLoggedIn = false;
+
+        // Hàm HIỆN/ẨN trang VÀ xử lý logic
+        function showPage(pageId) {
+            // 1. Ẩn tất cả các trang
+            var pages = document.querySelectorAll('main .page');
+            pages.forEach(function(page) {
+                page.style.display = 'none';
+            });
+            
+            // 2. Hiện trang được chọn
+            var selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.style.display = 'block';
+            }
+            
+            // 3. Ẩn/hiện header (thanh tìm kiếm)
+            var mainHeader = document.getElementById('main-header');
+            if (pageId === 'page-profile' || pageId === 'page-login' || pageId === 'page-register') {
+                mainHeader.style.display = 'none';
+            } else {
+                mainHeader.style.display = 'flex';
+            }
+            
+            // 4. Logic đặc biệt cho các trang
+            
+            // Logic cho trang HỒ SƠ
+            if (pageId === 'page-profile') {
+                const loggedInContent = document.getElementById('profile-content-loggedIn');
+                const loggedOutContent = document.getElementById('profile-content-loggedOut');
+                if (isLoggedIn) {
+                    loggedInContent.style.display = 'block';
+                    loggedOutContent.style.display = 'none';
+                } else {
+                    loggedInContent.style.display = 'none';
+                    loggedOutContent.style.display = 'block';
+                }
+            }
+            
+            // Logic cho trang BÀI HÁT (phân quyền)
+            if (pageId === 'page-songs') {
+                const adminPanel = document.getElementById('songs-content-admin');
+                const guestContent = document.getElementById('songs-content-guest');
+                
+                guestContent.style.display = 'block'; // Phần đề xuất luôn hiện
+                
+                if (isLoggedIn) {
+                    adminPanel.style.display = 'block'; // Hiện panel Admin
+                } else {
+                    adminPanel.style.display = 'none'; // Ẩn panel Admin
+                }
+            }
+        }
+
+        // Hàm CHỈ để cập nhật class 'active' trên sidebar
+        function setActiveSidebar(linkElement) {
+            if (!linkElement) return;
+            var links = document.querySelectorAll('.sidebar .page-link');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            linkElement.classList.add('active');
+        }
+        
+        // HÀM Mô phỏng Đăng nhập
+        function logIn() {
+            isLoggedIn = true;
+            alert('Đăng nhập thành công!');
+            updateAuthUI();
+            
+            // Tự động chuyển đến trang hồ sơ (đã đăng nhập)
+            showPage('page-profile');
+            setActiveSidebar(document.getElementById('link-profile'));
+        }
+        
+        // HÀM Mô phỏng Đăng xuất
+        function logOut() {
+            isLoggedIn = false;
+            alert('Bạn đã đăng xuất.');
+            updateAuthUI();
+            showPage('page-home'); // Tự động chuyển về trang chủ
+            setActiveSidebar(document.getElementById('link-home'));
+        }
+        
+        // HÀM Cập nhật các nút
+        function updateAuthUI() {
+            const loginLink = document.getElementById('link-login');
+            const registerLink = document.getElementById('link-register');
+            const logoutLink = document.getElementById('link-logout');
+            const headerAuthButtons = document.getElementById('header-auth-buttons');
+
+            if (isLoggedIn) {
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                logoutLink.style.display = 'block';
+                headerAuthButtons.style.display = 'none'; 
+            } else {
+                loginLink.style.display = 'block';
+                registerLink.style.display = 'block';
+                logoutLink.style.display = 'none';
+                headerAuthButtons.style.display = 'block'; 
+            }
+        }
+
+        // Khi tải trang, tự động hiển thị trang chủ và cập nhật UI
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('page-home');
+            setActiveSidebar(document.getElementById('link-home'));
+            updateAuthUI(); // Chạy lần đầu để đảm bảo UI đúng (trạng thái "chưa đăng nhập")
+        });
+    </script>
+
+</body>
+</html>
