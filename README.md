@@ -4,7 +4,7 @@
 
 #  MusicApp - Quản lý Âm nhạc (OOP Project)
 
-Mã học phần: `00P_N04_25_26` | Nhóm: `Group7_OOP_NO2_2025`
+Mã học phần: `00P_N04_25_26` | Nhóm: `Group7_OOP_NO4_2025`
 
 [](https://www.java.com)
 [](https://spring.io/projects/spring-boot)
