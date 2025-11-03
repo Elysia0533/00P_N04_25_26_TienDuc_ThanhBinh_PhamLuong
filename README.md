@@ -48,7 +48,7 @@ Mã học phần: `00P_N04_25_26` | Nhóm: `Group7_OOP_NO4_2025`
 
 | Lĩnh vực | Công nghệ |
 | :--- | :--- |
-| **Backend** | ![icons](https://skillicons.dev/icons?i=java,spring,Maven) (Java 17, Spring Boot, Maven) |
+| **Backend** | ![icons](https://skillicons.dev/icons?i=java,spring,aiven) (Java 17, Spring Boot, Maven) |
 | **Frontend** | ![icons](https://skillicons.dev/icons?i=html,css,thymeleaf) (HTML, CSS, Thymeleaf) |
 | **Database** | ![icons](https://skillicons.dev/icons?i=mysql) (MySQL) |
 | **Version Control** | ![icons](https://skillicons.dev/icons?i=git,github) (Git, Github) |
