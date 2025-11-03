@@ -140,6 +140,11 @@ Sơ đồ lớp mô tả cấu trúc tĩnh của hệ thống, bao gồm các l�
 \<img width="488" height="517" alt="Class Diagram" src="[https://github.com/user-attachments/assets/431125fa-545c-4adb-b6cf-04b054098aaa](https://github.com/user-attachments/assets/431125fa-545c-4adb-b6cf-04b054098aaa)" /\>
 
 ### 6.2 Sơ đồ Tuần tự (Sequence Diagram)
+
+Sơ đồ tuần tự mô tả luồng hoạt động của MusicApp
+
+![alt text](<Sequence diagram.png>)
+
 ### 6.1 Sơ đồ Lớp (Class Diagram)
 
 Sơ đồ lớp mô tả cấu trúc tĩnh của hệ thống, bao gồm các lớp, thuộc tính và mối quan hệ giữa chúng.
